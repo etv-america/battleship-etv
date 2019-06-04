@@ -37,9 +37,18 @@ def check_availability(target, grid):
         return False
 
 
+def check_hit(target, grid):
+    pass
+
 def fire(target, grid):
     if check_availability(target, grid):
-        return "hit"
+        if check_hit(target, grid):
+            return "hit"
+        else:
+            return "miss"
+    else:
+        return "retry"
+
 
 
 def print_board():
