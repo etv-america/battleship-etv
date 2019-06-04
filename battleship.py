@@ -20,7 +20,7 @@ def print_board():
 
 
 def check_vic(tally):
-    if tally == 17:
+    if tally >= 17:
         print("Player " + str(plr) + " won!")
         return True
     else:
@@ -34,7 +34,7 @@ def print_welcome():
     if response is "N":
         exit()
 def print_exit():
-    pass
+    print("Thanks for playing!")
 
 
 # Main Loop
