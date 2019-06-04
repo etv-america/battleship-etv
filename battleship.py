@@ -26,13 +26,15 @@ def get_target():
         return target
 
 
-def check_availability(target):
-    if plrs[plr]["grid"][(target[0] - 1)][(target[1] - 1)] == "0":
+def check_availability(target, grid):
+    if grid[(target[0] - 1)][(target[1] - 1)] == "0":
         return True
     else:
         return False
 
-def fire(target):
+
+def fire(target, grid):
+    check_availability(target, grid)
    
 
 def print_board():
@@ -96,7 +98,7 @@ while rounds <= 3:
         for player in range(2):
             plr = player + 1
             target = get_target()
-            result = fire(target)
+            result = fire(target, plrs[plr]["grid"])
             if result is "hit":
                 plrs[plr]["grid"][target[0]][target[1]] = "X"
                 plrs[plr]["tally"] += 1
