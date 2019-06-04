@@ -8,7 +8,17 @@ def place_ships():
 
 
 def get_target():
-    pass
+    choice = input("Where would you like to aim? (example: '2,3')")
+    if len(choice) > 3:
+        print("Your coordinate was invalid. Please follow the example and try again.")
+        get_target()
+    else:
+        choice_list = choice.split(',')
+        target = []
+        for i in choice_list:
+            target.append(int(i))
+        return target
+
 
 
 def fire(target):
@@ -16,19 +26,32 @@ def fire(target):
 
 
 def print_board():
-    pass
+    new_grid = []
+    for i in range(16):
+        new_grid.append([])
+    for i, k in enumerate(new_grid):
+        for a in range(16):
+            new_grid[i].append(0)
+    return new_grid
 
 
 def check_vic(tally):
-    pass
+    if tally >= 17:
+        print("Player " + str(plr) + " won!")
+        return True
+    else:
+        return False
 
 
 def print_welcome():
-    pass
+    print("Welcome To Battle Ship! The game of luck and strategy.")
+    response = input("Would you like to play a game? Y/N")
+    if response is "N":
+        exit()
 
 
 def print_exit():
-    pass
+    print("Thanks for playing!")
 
 
 # Main Loop
@@ -64,6 +87,7 @@ while rounds <= 3:
     plrs[2]["grid"] = clear_grid()
     plrs[1]["ships"] = place_ships()
     plrs[2]["ships"] = place_ships()
+    vic = False
     while not vic:
         for player in range(2):
             plr = player + 1
