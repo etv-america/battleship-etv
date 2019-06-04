@@ -5,7 +5,7 @@ def clear_grid():
         new_grid.append([])
     for i, k in enumerate(new_grid):
         for a in range(16):
-            new_grid[i].append(0)
+            new_grid[i].append("0")
     return new_grid
 
 
@@ -26,9 +26,14 @@ def get_target():
         return target
 
 
-def fire(target):
-    return "hit"
+def check_availability(target):
+    if plrs[plr]["grid"][(target[0] - 1)][(target[1] - 1)] == "0":
+        return True
+    else:
+        return False
 
+def fire(target):
+   
 
 def print_board():
     pass
