@@ -20,7 +20,12 @@ def print_board():
 
 
 def check_vic(tally):
-    pass
+    if tally == 17:
+        print("Player " + str(plr) + " won!")
+        return True
+    else:
+        return False
+
 
 
 def print_welcome():
@@ -64,6 +69,7 @@ while rounds <= 3:
     plrs[2]["grid"] = clear_grid()
     plrs[1]["ships"] = place_ships()
     plrs[2]["ships"] = place_ships()
+    vic = False
     while not vic:
         for player in range(2):
             plr = player + 1
