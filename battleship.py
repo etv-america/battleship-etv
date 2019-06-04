@@ -14,8 +14,8 @@ def place_ships():
 
 
 def get_target():
-    choice = input("Where would you like to aim? (example: '2,3')")
-    if len(choice) > 3:
+    choice = input("Where would you like to aim? (example: '12,3')")
+    if len(choice) > 7:
         print("Your coordinate was invalid. Please follow the example and try again.")
         get_target()
     else:
