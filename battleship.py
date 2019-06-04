@@ -34,7 +34,8 @@ def check_availability(target, grid):
 
 
 def fire(target, grid):
-    check_availability(target, grid)
+    if check_availability(target, grid):
+        return "hit"
    
 
 def print_board():
