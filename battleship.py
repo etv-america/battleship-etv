@@ -26,7 +26,13 @@ def fire(target):
 
 
 def print_board():
-    pass
+    new_grid = []
+    for i in range(16):
+        new_grid.append([])
+    for i, k in enumerate(new_grid):
+        for a in range(16):
+            new_grid[i].append(0)
+    return new_grid
 
 
 def check_vic(tally):
@@ -37,12 +43,13 @@ def check_vic(tally):
         return False
 
 
-
 def print_welcome():
-    print("Welcome To Battle Ship")
+    print("Welcome To Battle Ship! The game of luck and strategy.")
     response = input("Would you like to play a game? Y/N")
     if response is "N":
         exit()
+
+
 def print_exit():
     print("Thanks for playing!")
 
