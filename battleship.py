@@ -1,6 +1,12 @@
 # Functions
 def clear_grid():
-    pass
+    new_grid = []
+    for i in range(16):
+        new_grid.append([])
+    for i, k in enumerate(new_grid):
+        for a in range(16):
+            new_grid[i].append(0)
+    return new_grid
 
 
 def place_ships():
@@ -20,19 +26,12 @@ def get_target():
         return target
 
 
-
 def fire(target):
-    pass
+    return "hit"
 
 
 def print_board():
-    new_grid = []
-    for i in range(16):
-        new_grid.append([])
-    for i, k in enumerate(new_grid):
-        for a in range(16):
-            new_grid[i].append(0)
-    return new_grid
+    pass
 
 
 def check_vic(tally):
