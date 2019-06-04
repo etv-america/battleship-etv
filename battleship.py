@@ -25,8 +25,9 @@ def check_vic(tally):
 
 def print_welcome():
     print("Welcome To Battle Ship")
-
-
+    response = input("Would you like to play a game? Y/N")
+    if response is "N":
+        exit()
 def print_exit():
     pass
 
