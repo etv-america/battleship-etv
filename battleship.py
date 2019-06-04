@@ -10,7 +10,11 @@ def clear_grid():
 
 
 def place_ships():
-    pass
+    ships = {
+        "carrier": [[1, 1], [2, 1], [3, 1], [4, 1], [5, 1]],
+        "cruiser": [[4, 2], [4, 3], [4, 4]]
+    }
+    return ships
 
 
 def get_target():
@@ -33,10 +37,19 @@ def check_availability(target, grid):
         return False
 
 
+def check_hit(target, grid):
+    pass
+
 def fire(target, grid):
     if check_availability(target, grid):
-        return "hit"
-   
+        if check_hit(target, grid):
+            return "hit"
+        else:
+            return "miss"
+    else:
+        return "retry"
+
+
 
 def print_board():
     pass
