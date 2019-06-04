@@ -26,13 +26,16 @@ def get_target():
         return target
 
 
-def check_availability(target):
-    if plrs[plr]["grid"][(target[0] - 1)][(target[1] - 1)] == "0":
+def check_availability(target, grid):
+    if grid[(target[0] - 1)][(target[1] - 1)] == "0":
         return True
     else:
         return False
 
-def fire(target):
+
+def fire(target, grid):
+    if check_availability(target, grid):
+        return "hit"
    
 
 def print_board():
@@ -91,12 +94,14 @@ while rounds <= 3:
     plrs[2]["grid"] = clear_grid()
     plrs[1]["ships"] = place_ships()
     plrs[2]["ships"] = place_ships()
+    plrs[1]["tally"] = 0
+    plrs[2]["tally"] = 0
     vic = False
     while not vic:
         for player in range(2):
             plr = player + 1
             target = get_target()
-            result = fire(target)
+            result = fire(target, plrs[plr]["grid"])
             if result is "hit":
                 plrs[plr]["grid"][target[0]][target[1]] = "X"
                 plrs[plr]["tally"] += 1
