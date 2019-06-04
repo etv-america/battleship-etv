@@ -94,6 +94,8 @@ while rounds <= 3:
     plrs[2]["grid"] = clear_grid()
     plrs[1]["ships"] = place_ships()
     plrs[2]["ships"] = place_ships()
+    plrs[1]["tally"] = 0
+    plrs[2]["tally"] = 0
     vic = False
     while not vic:
         for player in range(2):
