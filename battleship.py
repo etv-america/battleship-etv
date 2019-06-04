@@ -26,7 +26,13 @@ def fire(target):
 
 
 def print_board():
-    pass
+    new_grid = []
+    for i in range(16):
+        new_grid.append([])
+    for i, k in enumerate(new_grid):
+        for a in range(16):
+            new_grid[i].append(0)
+    return new_grid
 
 
 def check_vic(tally):
@@ -35,7 +41,6 @@ def check_vic(tally):
         return True
     else:
         return False
-
 
 
 def print_welcome():
