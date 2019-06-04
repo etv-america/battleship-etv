@@ -24,7 +24,7 @@ def check_vic(tally):
 
 
 def print_welcome():
-    pass
+    print("Welcome To Battle Ship")
 
 
 def print_exit():
