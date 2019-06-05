@@ -7,14 +7,17 @@ def clear_grid():
         for a in range(16):
             new_grid[i].append("0")
     return new_grid
+    # TODO: Variable grid size
 
 
 def place_ships():
+    # Temporary static ship placement for development
     ships = {
         "carrier": [[1, 1], [2, 1], [3, 1], [4, 1], [5, 1]],
         "cruiser": [[4, 2], [4, 3], [4, 4]]
     }
     return ships
+    # TODO: implement random ship placement
 
 
 def get_target():
@@ -28,6 +31,8 @@ def get_target():
         for i in choice_list:
             target.append(int(i))
         return target
+    # TODO: better input filtration
+    # TODO: try catch for errors
 
 
 def check_availability(target, grid):
@@ -39,6 +44,8 @@ def check_availability(target, grid):
 
 def check_hit(target, grid):
     pass
+    # TODO: implement check_hit
+
 
 def fire(target, grid):
     if check_availability(target, grid):
@@ -50,9 +57,9 @@ def fire(target, grid):
         return "retry"
 
 
-
 def print_board():
     pass
+    # TODO: implement print board
 
 
 def check_vic(tally):
@@ -100,6 +107,7 @@ plrs = {
     }
 }
 
+# TODO: Finish main loop logic
 rounds = 0
 vic = False
 while rounds <= 3:
