@@ -18,8 +18,8 @@ def place_ships():
 
 
 def get_target():
-    choice = input("Where would you like to aim? (example: '2,3')")
-    if len(choice) > 3:
+    choice = input("Where would you like to aim? (example: '12,3')")
+    if len(choice) > 7:
         print("Your coordinate was invalid. Please follow the example and try again.")
         get_target()
     else:
@@ -38,7 +38,7 @@ def check_availability(target, grid):
 
 
 def check_hit(target, grid):
-    pass
+    if plrs[plr]["grid"][target[0]]
 
 def fire(target, grid):
     if check_availability(target, grid):
@@ -52,9 +52,7 @@ def fire(target, grid):
 
 
 def print_board():
-    for i in plrs[plr]["grid"]:
-        print(plrs[plr]["grid"][i])
-
+    pass
 
 def check_vic(tally):
     if tally >= 17:
