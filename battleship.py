@@ -32,7 +32,8 @@ def place_ships():
 
 def get_target():
     choice = input("Where would you like to aim? (example: '12,3')")
-    if len(choice) > 7:
+    if not (choice.split(','))[0].isdigit() or not (choice.split(','))[1].isdigit() \
+            or 1 <= int((choice.split(','))[0]) > grid_size or 1 <= int((choice.split(','))[1]) > grid_size:
         print("Your coordinate was invalid. Please follow the example and try again.")
         get_target()
     else:
