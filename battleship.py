@@ -41,6 +41,7 @@ def get_target():
         target = []
         for i in choice_list:
             target.append(int(i))
+        target = [target[1], target[0]]
         return target
 
 
