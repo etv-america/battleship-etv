@@ -52,7 +52,7 @@ def check_availability(target, grid):
 
 
 def check_hit(target, ships):
-    if target in ships:
+    if target in ships["carrier"] or target in ships["cruiser"]:
         return True
     else:
         return False
@@ -153,6 +153,7 @@ while rounds <= 3:
 
             elif result is "miss":
                 plrs[plr]["grid"][target[0]][target[1]] = "/"
+
             else:
                 print("please use correct coordinates, this part of the program is unfinished")
                 exit()
