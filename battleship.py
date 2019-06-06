@@ -1,4 +1,10 @@
+# imports
+
+import random
+
 # Functions
+
+
 def retrieve_size():
     difficulty = input("Enter difficulty: 1, 2, or 3. \n")
     if difficulty == "1":
@@ -22,11 +28,50 @@ def clear_grid():
     return new_grid
 
 
+def check_ships(ask, ships):
+    if ask in ships:
+        return False
+    else:
+        return True
+
 def place_ships():
-    ships = {
-        "carrier": [[1, 1], [1, 2], [1, 3], [1, 4], [1, 5]],
-        "cruiser": [[2, 4], [3, 4], [4, 4]]
-    }
+    for i in range(4):
+        length = i + 2
+        direction = random.randint(1, 3)  # 1 = horizontal, 2 = vertical
+        if direction == 1:
+            third = [0, 0]
+            fourth = [0, 0]
+            fifth = [0, 0]
+            first = [random.randint(1, (grid_size - length + 2)), random.randint(1, grid_size + 1)]
+            second = [first[0] + 1, first[1]]
+            if length >= 3:
+                third = [first[0] + 2, first[1]]
+                if length >= 4:
+                    fourth = [first[0] + 3, first[1]]
+                    if length >= 5:
+                        fifth = [first[0] + 4, first[1]]
+        if direction == 2:
+            third = [0, 0]
+            fourth = [0, 0]
+            fifth = [0, 0]
+            first = [random.randint(1, grid_size + 1), random.randint(1, (grid_size - length + 2))]
+            second = [first[0], first[1] + 1]
+            if length >= 3:
+                third = [first[0], first[1] + 2]
+                if length >= 4:
+                    fourth = [first[0], first[1] + 3]
+                    if length >= 5:
+                        fifth = [first[0], first[1] + 4]
+        new_ship = [first, second, third, fourth, fifth]
+        for k in new_ship:
+            if check_ships(k, ships):
+                ships.append(k)
+            else:
+                i = i - 1
+
+
+
+
     return ships
 
 
@@ -53,14 +98,14 @@ def get_target():
 
 
 def check_availability(target, grid):
-    if target == "fool" or grid[(target[0] - 1)][(target[1] - 1)] == "0":
+    if grid[(target[0] - 1)][(target[1] - 1)] == "0":
         return True
     else:
         return False
 
 
 def check_hit(target, ships):
-    if target == "fool" or target in ships["carrier"] or target in ships["cruiser"]:
+    if target in ships["carrier"] or target in ships["cruiser"]:
         return True
     else:
         return False
@@ -69,11 +114,7 @@ def check_hit(target, ships):
 def fire(target, grid, ships):
     if check_availability(target, grid):
         if check_hit(target, ships) == True:
-            if target == "fool":
-                return "skip"
-            else:
-                return "hit"
-
+            return "hit"
         else:
             return "miss"
     else:
@@ -120,6 +161,8 @@ def print_exit():
 grid_size = 0
 
 print_welcome()
+
+ships = []
 
 while grid_size == 0:
     grid_size = retrieve_size()
