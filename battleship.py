@@ -39,7 +39,7 @@ def check_availability(target, grid):
 
 
 def check_hit(target, grid):
-    if plrs[plr]["grid"][target[0]]
+    pass
 
 def fire(target, grid):
     if check_availability(target, grid):
