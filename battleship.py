@@ -3,9 +3,9 @@ def retrieve_size():
     difficulty = input("Enter difficulty: 1, 2, or 3.")
     if difficulty == "1":
         return 16
-    if difficulty == "2":
+    elif difficulty == "2":
         return 32
-    if difficulty == "3":
+    elif difficulty == "3":
         return 64
     else:
         print("Invalid difficulty! Try again.")
@@ -14,10 +14,10 @@ def retrieve_size():
 
 def clear_grid():
     new_grid = []
-    for i in range(16):
+    for i in range(grid_size):
         new_grid.append([])
     for i, k in enumerate(new_grid):
-        for a in range(16):
+        for a in range(grid_size):
             new_grid[i].append("0")
     return new_grid
 
@@ -151,7 +151,7 @@ while rounds <= 3:
                 plrs[plr]["tally"] += 1
 
             elif result is "miss":
-                plrs[plr]["grid"][target[0]][target[1]] = "\\"
+                plrs[plr]["grid"][target[0]][target[1]] = "/"
             else:
                 print("please use correct coordinates, this part of the program is unfinished")
                 exit()
