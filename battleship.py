@@ -1,4 +1,16 @@
 # Functions
+def retrieve_size():
+    difficulty = input("Enter difficulty: 1, 2, or 3.")
+    if difficulty == "1":
+        return 16
+    if difficulty == "2":
+        return 32
+    if difficulty == "3":
+        return 64
+    else:
+        print("Invalid difficulty! Try again.")
+        retrieve_size()
+
 
 def clear_grid():
     new_grid = []
@@ -56,13 +68,13 @@ def fire(target, grid):
 
 
 def print_board(grid):
-    side_len = len(grid)  # one side of the grid matrix
-    coord_a = "   "  # first line of board
-    spacer = " "  # space between grid locations
+    side_len = grid_size  # one side of the grid matrix
+    coord_a = "    "  # first line of board
+    spacer = "  "  # space between grid locations
     for a in range(side_len):
-        coord_a = coord_a + (chr(ord("A") + a)) + spacer  # implements letters into first line
+        coord_a = coord_a + str(a + 1) + " " * (3 - len(str(a + 1)))  # implements letters into first line
     print(coord_a)
-    for i in range(16):  # begins to separate grid into individual strings
+    for i in range(side_len):  # begins to separate grid into individual strings
         string = str(i + 1) + spacer
         if i < 9:
             string = " " + string
@@ -70,6 +82,7 @@ def print_board(grid):
             string = string + grid[i][k] + spacer
         grid[i] = string
         print(grid[i])
+
 
 def check_vic(tally):
     if tally >= 17:
@@ -93,6 +106,8 @@ def print_exit():
 # Main Loop
 
 print_welcome()
+
+grid_size = retrieve_size()
 
 plrs = {
     1: {
