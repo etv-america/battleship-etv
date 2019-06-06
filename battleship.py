@@ -108,7 +108,7 @@ def check_vic(tally):
 def print_welcome():
     print("Welcome To Battle Ship! The game of luck and strategy. \n")
     response = input("Would you like to play a game? Y/N \n")
-    if response is "N":
+    if response[0] is "N" or response[0] is "n":
         exit()
 
 
