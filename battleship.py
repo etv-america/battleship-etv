@@ -1,6 +1,6 @@
 # Functions
 def retrieve_size():
-    difficulty = input("Enter difficulty: 1, 2, or 3.")
+    difficulty = input("Enter difficulty: 1, 2, or 3. ")
     if difficulty == "1":
         return 16
     elif difficulty == "2":
@@ -31,7 +31,7 @@ def place_ships():
 
 
 def get_target():
-    choice = input("Where would you like to aim? (example: '12,3')")
+    choice = input("Where would you like to aim? (example: '12,3') ")
     if not (choice.split(','))[0].isdigit() or not (choice.split(','))[1].isdigit() \
             or 1 <= int((choice.split(','))[0]) > grid_size or 1 <= int((choice.split(','))[1]) > grid_size:
         print("Your coordinate was invalid. Please follow the example and try again.")
@@ -59,9 +59,9 @@ def check_hit(target, ships):
         return False
 
 
-def fire(target, grid):
+def fire(target, grid, ships):
     if check_availability(target, grid):
-        if check_hit(target, grid):
+        if check_hit(target, ships):
             return "hit"
         else:
             return "miss"
@@ -82,8 +82,8 @@ def print_board(grid):
             string = " " + string
         for k in range(side_len):
             string = string + grid[i][k] + spacer
-        grid[i] = string
-        print(grid[i])
+        grid_print = string
+        print(grid_print)
 
 
 def check_vic(tally):
@@ -96,7 +96,7 @@ def check_vic(tally):
 
 def print_welcome():
     print("Welcome To Battle Ship! The game of luck and strategy.")
-    response = input("Would you like to play a game? Y/N")
+    response = input("Would you like to play a game? Y/N ")
     if response is "N":
         exit()
 
@@ -146,14 +146,20 @@ while rounds <= 3:
     while not vic:
         for player in range(2):
             plr = player + 1
+            print("It's " + str(plr) + "'s turn!")
+            print_board(plrs[plr]["grid"])
             target = get_target()
-            result = fire(target, plrs[plr]["grid"])
+            result = fire(target, plrs[plr]["grid"], plrs[plr]["ships"])
             if result is "hit":
-                plrs[plr]["grid"][target[0]][target[1]] = "X"
+                plrs[plr]["grid"][target[0] - 1][target[1] - 1] = "X"
                 plrs[plr]["tally"] += 1
+                print_board(plrs[plr]["grid"])
+                print("Hit!!!")
 
             elif result is "miss":
-                plrs[plr]["grid"][target[0]][target[1]] = "/"
+                plrs[plr]["grid"][target[0] - 1][target[1] - 1] = "/"
+                print_board(plrs[plr]["grid"])
+                print("Miss :(")
 
             else:
                 print("please use correct coordinates, this part of the program is unfinished")
