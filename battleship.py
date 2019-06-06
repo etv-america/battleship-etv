@@ -38,8 +38,12 @@ def check_availability(target, grid):
         return False
 
 
-def check_hit(target, grid):
-    pass
+def check_hit(target, ships):
+    if target in ships:
+        return True
+    else:
+        return False
+
 
 def fire(target, grid):
     if check_availability(target, grid):
