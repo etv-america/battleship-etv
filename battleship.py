@@ -61,7 +61,6 @@ def print_board():
     pass
     # TODO: implement print board
 
-
 def check_vic(tally):
     if tally >= 17:
         print("Player " + str(plr) + " won!")
