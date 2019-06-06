@@ -51,9 +51,21 @@ def fire(target, grid):
         return "retry"
 
 
-
-def print_board():
-    pass
+def print_board(grid):
+    side_len = len(grid)  # one side of the grid matrix
+    coord_a = "   "  # first line of board
+    spacer = " "  # space between grid locations
+    for a in range(side_len):
+        coord_a = coord_a + (chr(ord("A") + a)) + spacer  # implements letters into first line
+    print(coord_a)
+    for i in range(16):  # begins to separate grid into individual strings
+        string = str(i + 1) + spacer
+        if i < 9:
+            string = " " + string
+        for k in range(side_len):
+            string = string + grid[i][k] + spacer
+        grid[i] = string
+        print(grid[i])
 
 def check_vic(tally):
     if tally >= 17:
