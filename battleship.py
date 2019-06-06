@@ -52,7 +52,8 @@ def fire(target, grid):
 
 
 def print_board():
-    pass
+    for i in plrs[plr]["grid"]:
+        print(plrs[plr]["grid"][i])
 
 
 def check_vic(tally):
