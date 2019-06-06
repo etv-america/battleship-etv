@@ -1,4 +1,5 @@
 # Functions
+
 def clear_grid():
     new_grid = []
     for i in range(16):
