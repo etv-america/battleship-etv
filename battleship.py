@@ -24,8 +24,8 @@ def clear_grid():
 
 def place_ships():
     ships = {
-        "carrier": [[1, 1], [2, 1], [3, 1], [4, 1], [5, 1]],
-        "cruiser": [[4, 2], [4, 3], [4, 4]]
+        "carrier": [[1, 1], [1, 2], [1, 3], [1, 4], [1, 5]],
+        "cruiser": [[2, 4], [3, 4], [4, 4]]
     }
     return ships
 
