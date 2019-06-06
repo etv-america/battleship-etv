@@ -1,4 +1,17 @@
 # Functions
+def retrieve_size():
+    difficulty = input("Enter difficulty: 1, 2, or 3.")
+    if difficulty == "1":
+        return 16
+    if difficulty == "2":
+        return 32
+    if difficulty == "3":
+        return 64
+    else:
+        print("Invalid difficulty! Try again.")
+        retrieve_size()
+
+
 def clear_grid():
     new_grid = []
     for i in range(16):
@@ -37,8 +50,12 @@ def check_availability(target, grid):
         return False
 
 
-def check_hit(target, grid):
-    if plrs[plr]["grid"][target[0]]
+def check_hit(target, ships):
+    if target in ships:
+        return True
+    else:
+        return False
+
 
 def fire(target, grid):
     if check_availability(target, grid):
@@ -50,9 +67,22 @@ def fire(target, grid):
         return "retry"
 
 
+def print_board(grid):
+    side_len = grid_size  # one side of the grid matrix
+    coord_a = "    "  # first line of board
+    spacer = "  "  # space between grid locations
+    for a in range(side_len):
+        coord_a = coord_a + str(a + 1) + " " * (3 - len(str(a + 1)))  # implements letters into first line
+    print(coord_a)
+    for i in range(side_len):  # begins to separate grid into individual strings
+        string = str(i + 1) + spacer
+        if i < 9:
+            string = " " + string
+        for k in range(side_len):
+            string = string + grid[i][k] + spacer
+        grid[i] = string
+        print(grid[i])
 
-def print_board():
-    pass
 
 def check_vic(tally):
     if tally >= 17:
@@ -76,6 +106,8 @@ def print_exit():
 # Main Loop
 
 print_welcome()
+
+grid_size = retrieve_size()
 
 plrs = {
     1: {
