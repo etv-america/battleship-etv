@@ -2,6 +2,39 @@
 
 import random
 
+import pygame
+
+pygame.mixer.init()
+
+
+# sounds
+
+
+def hit_music():
+    pygame.mixer.music.load('hardcore.mp3')
+    pygame.mixer.music.play()
+
+
+def miss_music():
+    pygame.mixer.music.load('music.mp3')
+    pygame.mixer.music.play()
+
+
+def skip_music():
+    pygame.mixer.music.load('fricks.mp3')
+    pygame.mixer.music.play(1)
+
+
+def hit_sound():
+    sound = pygame.mixer.Sound('388528__eflexmusic__artillery-explosion-close-mixed.wav')
+    sound.play()
+
+
+def miss_sound():
+    sound = pygame.mixer.Sound('9508__petenice__splash.wav')
+    sound.play()
+
+
 # Functions
 
 
@@ -186,7 +219,8 @@ plrs = {
         },
         "tally": 0,
         "targets": [],
-        "score": 0
+        "score": 0,
+        "last": "hit"
     },
 
     2: {
@@ -196,7 +230,8 @@ plrs = {
         },
         "tally": 0,
         "targets": [],
-        "score": 0
+        "score": 0,
+        "last": "hit"
     }
 }
 
@@ -213,6 +248,12 @@ while rounds <= 3:
     while not vic:
         for player in range(2):
             plr = player + 1
+            if plrs[1]["last"] == "hit" or plrs[2]["last"] == "hit":
+                hit_music()
+            elif plrs[plr]["last"] == "skip":
+                skip_music()
+            else:
+                miss_music()
             print("\n It's " + str(plr) + "'s turn! \n")
             print_board(plrs[plr]["grid"])
             target = 0
@@ -220,19 +261,24 @@ while rounds <= 3:
                 target = get_target()
             result = fire(target, plrs[plr]["grid"], plrs[plr]["ships"])
             if result is "hit":
+                hit_sound()
                 plrs[plr]["grid"][target[0] - 1][target[1] - 1] = "X"
                 plrs[plr]["tally"] += 1
                 print_board(plrs[plr]["grid"])
                 print("\nXXXXXXXXXXXXXXX\n    Hit!!!!    \nXXXXXXXXXXXXXXX\n")
+                plrs[plr]["last"] = "hit"
 
             elif result is "miss":
+                miss_sound()
                 plrs[plr]["grid"][target[0] - 1][target[1] - 1] = "/"
                 print_board(plrs[plr]["grid"])
                 print("\n///////////////\n    Miss :(    \n///////////////\n")
+                plrs[plr]["last"] = "miss"
 
             elif result is "skip":
                 print("\nWhen will you learn that YOUR ACTIONS HAVE CONSEQUENCES?! \
                  \nYou Have Been Skipped. Weep, Fool. \n \n")
+                plrs[plr]["last"] = "skip"
 
             else:
                 print("please use correct coordinates, this part of the program is unfinished")
