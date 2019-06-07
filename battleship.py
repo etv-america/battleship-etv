@@ -8,11 +8,11 @@ import random
 def retrieve_size():
     difficulty = input("Enter difficulty: 1, 2, or 3. \n")
     if difficulty == "1":
-        return 16
+        return 8
     elif difficulty == "2":
-        return 32
+        return 16
     elif difficulty == "3":
-        return 64
+        return 32
     else:
         print("Invalid difficulty! Try again. \n")
         return 0
@@ -24,54 +24,61 @@ def clear_grid():
         new_grid.append([])
     for i, k in enumerate(new_grid):
         for a in range(grid_size):
-            new_grid[i].append("0")
+            new_grid[i].append("-")
     return new_grid
 
 
 def check_ships(ask, ships):
-    if ask in ships:
+    if ask == [-1, -1]:
+        return True
+    elif ask in ships:
         return False
     else:
         return True
 
+
 def place_ships():
+    ships = []
     for i in range(4):
-        length = i + 2
-        direction = random.randint(1, 3)  # 1 = horizontal, 2 = vertical
-        if direction == 1:
-            third = [0, 0]
-            fourth = [0, 0]
-            fifth = [0, 0]
-            first = [random.randint(1, (grid_size - length + 2)), random.randint(1, grid_size + 1)]
-            second = [first[0] + 1, first[1]]
-            if length >= 3:
-                third = [first[0] + 2, first[1]]
-                if length >= 4:
-                    fourth = [first[0] + 3, first[1]]
-                    if length >= 5:
-                        fifth = [first[0] + 4, first[1]]
-        if direction == 2:
-            third = [0, 0]
-            fourth = [0, 0]
-            fifth = [0, 0]
-            first = [random.randint(1, grid_size + 1), random.randint(1, (grid_size - length + 2))]
-            second = [first[0], first[1] + 1]
-            if length >= 3:
-                third = [first[0], first[1] + 2]
-                if length >= 4:
-                    fourth = [first[0], first[1] + 3]
-                    if length >= 5:
-                        fifth = [first[0], first[1] + 4]
-        new_ship = [first, second, third, fourth, fifth]
-        for k in new_ship:
-            if check_ships(k, ships):
-                ships.append(k)
+        collision = True
+        while collision:
+            check_collision = 0
+            length = i + 2
+            valid_ship = []
+            direction = random.randint(1, 2)  # 1 = vertical, 2 = horizontal
+            if direction == 1:
+                third = [-1, -1]
+                fourth = [-1, -1]
+                fifth = [-1, -1]
+                first = [random.randint(1, (grid_size - length + 1)), random.randint(1, grid_size)]
+                second = [first[0] + 1, first[1]]
+                if length >= 3:
+                    third = [first[0] + 2, first[1]]
+                    if length >= 4:
+                        fourth = [first[0] + 3, first[1]]
+                        if length >= 5:
+                            fifth = [first[0] + 4, first[1]]
             else:
-                i = i - 1
-
-
-
-
+                third = [-1, -1]
+                fourth = [-1, -1]
+                fifth = [-1, -1]
+                first = [random.randint(1, grid_size), random.randint(1, (grid_size - length + 1))]
+                second = [first[0], first[1] + 1]
+                if length >= 3:
+                    third = [first[0], first[1] + 2]
+                    if length >= 4:
+                        fourth = [first[0], first[1] + 3]
+                        if length >= 5:
+                            fifth = [first[0], first[1] + 4]
+            new_ship = [first, second, third, fourth, fifth]
+            for k in new_ship:
+                if check_ships(k, ships):
+                    valid_ship.append(k)
+                else:
+                    check_collision += 1
+            if check_collision == 0:
+                ships.extend(valid_ship)
+                collision = False
     return ships
 
 
@@ -79,7 +86,7 @@ def get_target():
     choice = input("\nWhere would you like to aim? (example: '12,3') \n")
     try:
         int(choice)
-    except TypeError:
+    except ValueError:
         if not (choice.split(','))[0].isdigit() or not (choice.split(','))[1].isdigit() \
                 or 1 <= int((choice.split(','))[0]) > grid_size or 1 <= int((choice.split(','))[1]) > grid_size:
             target = 0
@@ -98,14 +105,14 @@ def get_target():
 
 
 def check_availability(target, grid):
-    if grid[(target[0] - 1)][(target[1] - 1)] == "0":
+    if grid[(target[0] - 1)][(target[1] - 1)] == "-":
         return True
     else:
         return False
 
 
 def check_hit(target, ships):
-    if target in ships["carrier"] or target in ships["cruiser"]:
+    if target in plrs[plr]["ships"]:
         return True
     else:
         return False
@@ -139,7 +146,7 @@ def print_board(grid):
 
 
 def check_vic(tally):
-    if tally >= 17:
+    if tally >= 14:
         print("Player " + str(plr) + " won!")
         return True
     else:
@@ -161,8 +168,6 @@ def print_exit():
 grid_size = 0
 
 print_welcome()
-
-ships = []
 
 while grid_size == 0:
     grid_size = retrieve_size()
