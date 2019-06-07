@@ -89,7 +89,8 @@ def get_target():  # Asks player for a target and determines validity of target
         int(choice)
     except ValueError:
         if not (choice.split(','))[0].isdigit() or not (choice.split(','))[1].isdigit() \
-                or 1 <= int((choice.split(','))[0]) > grid_size or 1 <= int((choice.split(','))[1]) > grid_size:
+                or 1 <= int((choice.split(','))[0]) > grid_size or 1 <= int((choice.split(','))[1]) > grid_size \
+                or len(str(choice.split(','))) > 2:
             target = 0
             print("Invalid coordinate. Please try again.")
             return target
@@ -143,7 +144,8 @@ def print_board(grid):  # Prints the current board including '-'s, 'X's, and '/'
         for k in range(side_len):
             string = string + grid[i][k] + spacer
         grid_print = string
-        print(grid_print + "\n")
+        print(grid_print)
+    print("\n")
 
 
 def check_vic(tally):  # Checks whether a player has sunk every ship or not
