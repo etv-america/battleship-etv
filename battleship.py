@@ -142,7 +142,7 @@ def print_board(grid):
         for k in range(side_len):
             string = string + grid[i][k] + spacer
         grid_print = string
-        print(grid_print)
+        print(grid_print + "\n")
 
 
 def check_vic(tally):
@@ -217,16 +217,16 @@ while rounds <= 3:
                 plrs[plr]["grid"][target[0] - 1][target[1] - 1] = "X"
                 plrs[plr]["tally"] += 1
                 print_board(plrs[plr]["grid"])
-                print("\n Hit!!! \n")
+                print("\nXXXXXXXXXXXXXXX\nHit!!!\nXXXXXXXXXXXXXXX\n")
 
             elif result is "miss":
                 plrs[plr]["grid"][target[0] - 1][target[1] - 1] = "/"
                 print_board(plrs[plr]["grid"])
-                print("\n Miss :( \n")
+                print("\n///////////////\nMiss :(\n///////////////\n")
 
             elif result is "skip":
-                print("\n When will you learn that YOUR ACTIONS HAVE CONSEQUENCES?! \
-                 \n You Have Been Skipped. Weep, Fool. \n \n")
+                print("\nWhen will you learn that YOUR ACTIONS HAVE CONSEQUENCES?! \
+                 \nYou Have Been Skipped. Weep, Fool. \n \n")
 
             else:
                 print("please use correct coordinates, this part of the program is unfinished")
