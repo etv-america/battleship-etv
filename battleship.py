@@ -3,9 +3,9 @@ def retrieve_size():
     difficulty = input("Enter difficulty: 1, 2, or 3.")
     if difficulty == "1":
         return 16
-    if difficulty == "2":
+    elif difficulty == "2":
         return 32
-    if difficulty == "3":
+    elif difficulty == "3":
         return 64
     else:
         print("Invalid difficulty! Try again.")
@@ -14,28 +14,26 @@ def retrieve_size():
 
 def clear_grid():
     new_grid = []
-    for i in range(16):
+    for i in range(grid_size):
         new_grid.append([])
     for i, k in enumerate(new_grid):
-        for a in range(16):
+        for a in range(grid_size):
             new_grid[i].append("0")
     return new_grid
-    # TODO: Variable grid size
 
 
 def place_ships():
-    # Temporary static ship placement for development
     ships = {
-        "carrier": [[1, 1], [2, 1], [3, 1], [4, 1], [5, 1]],
-        "cruiser": [[4, 2], [4, 3], [4, 4]]
+        "carrier": [[1, 1], [1, 2], [1, 3], [1, 4], [1, 5]],
+        "cruiser": [[2, 4], [3, 4], [4, 4]]
     }
     return ships
-    # TODO: implement random ship placement
 
 
 def get_target():
     choice = input("Where would you like to aim? (example: '12,3')")
-    if len(choice) > 7:
+    if not (choice.split(','))[0].isdigit() or not (choice.split(','))[1].isdigit() \
+            or 1 <= int((choice.split(','))[0]) > grid_size or 1 <= int((choice.split(','))[1]) > grid_size:
         print("Your coordinate was invalid. Please follow the example and try again.")
         get_target()
     else:
@@ -43,9 +41,8 @@ def get_target():
         target = []
         for i in choice_list:
             target.append(int(i))
+        target = [target[1], target[0]]
         return target
-    # TODO: better input filtration
-    # TODO: try catch for errors
 
 
 def check_availability(target, grid):
@@ -56,7 +53,7 @@ def check_availability(target, grid):
 
 
 def check_hit(target, ships):
-    if target in ships:
+    if target in ships["carrier"] or target in ships["cruiser"]:
         return True
     else:
         return False
@@ -136,7 +133,6 @@ plrs = {
     }
 }
 
-# TODO: Finish main loop logic
 rounds = 0
 vic = False
 while rounds <= 3:
@@ -157,7 +153,8 @@ while rounds <= 3:
                 plrs[plr]["tally"] += 1
 
             elif result is "miss":
-                plrs[plr]["grid"][target[0]][target[1]] = "\\"
+                plrs[plr]["grid"][target[0]][target[1]] = "/"
+
             else:
                 print("please use correct coordinates, this part of the program is unfinished")
                 exit()
