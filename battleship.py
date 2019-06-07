@@ -5,7 +5,7 @@ import random
 # Functions
 
 
-def retrieve_size():
+def retrieve_size():  # Asks user for a difficulty and outputs length of one side of the grid
     difficulty = input("Enter difficulty: 1, 2, or 3. \n")
     if difficulty == "1":
         return 8
@@ -18,7 +18,7 @@ def retrieve_size():
         return 0
 
 
-def clear_grid():
+def clear_grid():  # Produces empty grid in the size chosen by user
     new_grid = []
     for i in range(grid_size):
         new_grid.append([])
@@ -28,7 +28,7 @@ def clear_grid():
     return new_grid
 
 
-def check_ships(ask, ships):
+def check_ships(ask, ships):  # Checks whether it's safe to place a ship in the coordinate ask
     if ask == [-1, -1]:
         return True
     elif ask in ships:
@@ -37,7 +37,8 @@ def check_ships(ask, ships):
         return True
 
 
-def place_ships():
+def place_ships():  # Randomly places ships and outputs list of ship coordinates.\
+    # There is a length 5, 4, 3, and 2, making a total of four ships
     ships = []
     for i in range(4):
         collision = True
@@ -82,7 +83,7 @@ def place_ships():
     return ships
 
 
-def get_target():
+def get_target():  # Asks player for a target and determines validity of target
     choice = input("\nWhere would you like to aim? (example: '12,3') \n")
     try:
         int(choice)
@@ -104,23 +105,23 @@ def get_target():
         return 0
 
 
-def check_availability(target, grid):
+def check_availability(target, grid):  # Checks whether a space has already been hit
     if grid[(target[0] - 1)][(target[1] - 1)] == "-":
         return True
     else:
         return False
 
 
-def check_hit(target, ships):
+def check_hit(target, ships):  # Checks to see if target hits a ship
     if target in plrs[plr]["ships"]:
         return True
     else:
         return False
 
 
-def fire(target, grid, ships):
+def fire(target, grid, ships):  # Uses target, grid, and ships to determine the outcome of the player's input
     if check_availability(target, grid):
-        if check_hit(target, ships) == True:
+        if check_hit(target, ships):
             return "hit"
         else:
             return "miss"
@@ -128,7 +129,7 @@ def fire(target, grid, ships):
         return "skip"
 
 
-def print_board(grid):
+def print_board(grid):  # Prints the current board including '-'s, 'X's, and '/'s
     side_len = grid_size  # one side of the grid matrix
     coord_a = "    "  # first line of board
     spacer = "  "  # space between grid locations
@@ -145,23 +146,25 @@ def print_board(grid):
         print(grid_print + "\n")
 
 
-def check_vic(tally):
+def check_vic(tally):  # Checks whether a player has sunk every ship or not
     if tally >= 14:
         print("Player " + str(plr) + " won!")
+        print_exit()
         return True
     else:
         return False
 
 
-def print_welcome():
+def print_welcome():  # Asks the user whether they will play
     print("Welcome To Battle Ship! The game of luck and strategy. \n")
     response = input("Would you like to play a game? Y/N \n")
     if response[0] is "N" or response[0] is "n":
         exit()
 
 
-def print_exit():
-    print("Thanks for playing!")
+def print_exit():  # Exits the game
+    print("\nThanks for playing!")
+    exit()
 
 
 # Main Loop
@@ -217,12 +220,12 @@ while rounds <= 3:
                 plrs[plr]["grid"][target[0] - 1][target[1] - 1] = "X"
                 plrs[plr]["tally"] += 1
                 print_board(plrs[plr]["grid"])
-                print("\nXXXXXXXXXXXXXXX\nHit!!!\nXXXXXXXXXXXXXXX\n")
+                print("\nXXXXXXXXXXXXXXX\n    Hit!!!!    \nXXXXXXXXXXXXXXX\n")
 
             elif result is "miss":
                 plrs[plr]["grid"][target[0] - 1][target[1] - 1] = "/"
                 print_board(plrs[plr]["grid"])
-                print("\n///////////////\nMiss :(\n///////////////\n")
+                print("\n///////////////\n    Miss :(    \n///////////////\n")
 
             elif result is "skip":
                 print("\nWhen will you learn that YOUR ACTIONS HAVE CONSEQUENCES?! \
