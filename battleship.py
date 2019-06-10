@@ -192,10 +192,23 @@ def check_vic(tally):  # Checks whether a player has sunk every ship or not
 
 
 def print_welcome():  # Asks the user whether they will play
+    players = 0
     print("Welcome To Battle Ship! The game of luck and strategy. \n")
     response = input("Would you like to play a game? Y/N \n")
     if response[0] is "N" or response[0] is "n":
         exit()
+    while players == 0:
+        ask = input("How many players will play? (2 at most) ")
+        if ask == "1":
+            players = 1
+        elif ask == "2":
+            players = 2
+        elif ask == "0":
+            print("Oh. okay. Bye, I guess.")
+            exit()
+        else:
+            print("That isn't a valid number of players! Try again.")
+    return players
 
 
 def print_exit():  # Exits the game
