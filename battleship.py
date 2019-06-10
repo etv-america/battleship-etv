@@ -199,7 +199,7 @@ def print_welcome():  # Asks the user whether they will play
     if response[0] is "N" or response[0] is "n":
         exit()
     while players == 0:
-        ask = input("How many players will play? (2 at most) ")
+        ask = input("How many players will play? (2 at most)\n")
         if ask == "1":
             players = 1
         elif ask == "2":
@@ -219,7 +219,7 @@ def print_exit():  # Exits the game
 # Main Loop
 grid_size = 0
 
-print_welcome()
+game_mode = print_welcome()
 
 while grid_size == 0:
     grid_size = retrieve_size()
@@ -264,7 +264,7 @@ while rounds <= 3:
     plrs[2]["tally"] = 0
     vic = False
     while not vic:
-        for player in range(2):
+        for player in range(game_mode):
             plr = player + 1
             if plrs[1]["last"] == "hit" or plrs[2]["last"] == "hit":
                 hit_music()
@@ -295,13 +295,30 @@ while rounds <= 3:
 
             elif result is "skip":
                 print("\nWhen will you learn that YOUR ACTIONS HAVE CONSEQUENCES?! \
-                 \nYou Have Been Skipped. Weep, Fool. \n \n")
+                        \nYou Have Been Skipped. Weep, Fool. \n \n")
                 plrs[plr]["last"] = "skip"
 
             else:
                 print("please use correct coordinates, this part of the program is unfinished")
                 exit()
             vic = check_vic(plrs[plr]["tally"])
+            if game_mode == 1:
+                print("It's Computer's turn!")
+                if grid_size == 8:
+                    chance = 8
+                elif grid_size == 16:
+                    chance = 20
+                else:
+                    chance = 16
+                guess = random.randint(1, chance)
+                if guess == 1:
+                    plrs[2]["tally"] += 1
+                    print("\nXXXXXXXXXXXXXXX\n    Hit!!!!    \nXXXXXXXXXXXXXXX\n")
+                else:
+                    print("\n///////////////\n    Miss :(    \n///////////////\n")
+                if plrs[2]["tally"] >= double * 14:
+                    print("Lmao the computer beat you. Cya nerd.")
+                    exit()
     rounds += 1
 
 print_exit()
