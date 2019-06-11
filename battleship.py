@@ -75,7 +75,7 @@ def place_ships():  # Randomly places ships and outputs list of ship coordinates
     # There is a length 5, 4, 3, and 2, making a total of four ships
     ships = {}
     for s in range(double * 5):
-        ships.update({"ship " + str(s + 1): ["yo"]})
+        ships.update({"ship " + str(s + 1): []})
     for q in range(double):
         for i in range(5):
             collision = True
@@ -90,25 +90,18 @@ def place_ships():  # Randomly places ships and outputs list of ship coordinates
                 fourth = [-1, -1]
                 fifth = [-1, -1]
                 direction = random.randint(1, 2)  # 1 = vertical, 2 = horizontal
-                if direction == 1:
-                    first = [random.randint(1, (grid_size - length + 1)), random.randint(1, grid_size)]
-                    second = [first[0] + 1, first[1]]
-                    if length >= 3:
-                        third = [first[0] + 2, first[1]]
-                        if length >= 4:
-                            fourth = [first[0] + 3, first[1]]
-                            if length >= 5:
-                                fifth = [first[0] + 4, first[1]]
-                else:
-                    first = [random.randint(1, grid_size), random.randint(1, (grid_size - length + 1))]
-                    second = [first[0], first[1] + 1]
-                    if length >= 3:
-                        third = [first[0], first[1] + 2]
-                        if length >= 4:
-                            fourth = [first[0], first[1] + 3]
-                            if length >= 5:
-                                fifth = [first[0], first[1] + 4]
+                first = [random.randint(1, (grid_size - length + 1)), random.randint(1, grid_size)]
+                second = [first[0] + 1, first[1]]
+                if length >= 3:
+                    third = [first[0] + 2, first[1]]
+                    if length >= 4:
+                        fourth = [first[0] + 3, first[1]]
+                        if length >= 5:
+                            fifth = [first[0] + 4, first[1]]
                 new_ship = [first, second, third, fourth, fifth]
+                if direction == 2:
+                    for m in range(5):
+                        new_ship[m] = [new_ship[m][1], new_ship[m][0]]
                 for k in new_ship:
                     if check_ships(k, ships):
                         valid_ship.append(k)
