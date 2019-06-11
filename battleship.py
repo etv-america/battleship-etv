@@ -374,9 +374,9 @@ while rounds <= 3:
                 if grid_size == 8:
                     chance = 5
                 elif grid_size == 16:
-                    chance = 18
+                    chance = 14
                 else:
-                    chance = 15
+                    chance = 11
                 guess = random.randint(1, chance)
                 if guess == 1:
                     plrs[2]["tally"] += 1
