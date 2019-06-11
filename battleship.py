@@ -64,17 +64,20 @@ def clear_grid():  # Produces empty grid in the size chosen by user
 def check_ships(ask, ships):  # Checks whether it's safe to place a ship in the coordinate ask
     if ask == [-1, -1]:
         return True
-    elif ask in ships:
-        return False
     else:
+        for n in range(5 * double):
+            if ask in ships["ship " + str(n + 1)]:
+                return False
         return True
 
 
 def place_ships():  # Randomly places ships and outputs list of ship coordinates.\
     # There is a length 5, 4, 3, and 2, making a total of four ships
-    ships = []
-    for i in range(double):
-        for i in range(4):
+    ships = {}
+    for s in range(double * 5):
+        ships.update({"ship " + str(s + 1): ["yo"]})
+    for q in range(double):
+        for i in range(2):
             collision = True
             while collision:
                 check_collision = 0
@@ -112,8 +115,57 @@ def place_ships():  # Randomly places ships and outputs list of ship coordinates
                     else:
                         check_collision += 1
                 if check_collision == 0:
-                    ships.extend(valid_ship)
+                    valid_ship = {"ship " + str(5 * q + (i + 1)): valid_ship}
+                    ships.update(valid_ship)
                     collision = False
+        for i in range(3):
+            collision = True
+            while collision:
+                check_collision = 0
+                length = i + 3
+                valid_ship = []
+                direction = random.randint(1, 2)  # 1 = vertical, 2 = horizontal
+                if direction == 1:
+                    third = [-1, -1]
+                    fourth = [-1, -1]
+                    fifth = [-1, -1]
+                    first = [random.randint(1, (grid_size - length + 1)), random.randint(1, grid_size)]
+                    second = [first[0] + 1, first[1]]
+                    if length >= 3:
+                        third = [first[0] + 2, first[1]]
+                        if length >= 4:
+                            fourth = [first[0] + 3, first[1]]
+                            if length >= 5:
+                                fifth = [first[0] + 4, first[1]]
+                else:
+                    third = [-1, -1]
+                    fourth = [-1, -1]
+                    fifth = [-1, -1]
+                    first = [random.randint(1, grid_size), random.randint(1, (grid_size - length + 1))]
+                    second = [first[0], first[1] + 1]
+                    if length >= 3:
+                        third = [first[0], first[1] + 2]
+                        if length >= 4:
+                            fourth = [first[0], first[1] + 3]
+                            if length >= 5:
+                                fifth = [first[0], first[1] + 4]
+                new_ship = [first, second, third, fourth, fifth]
+                for k in new_ship:
+                    if check_ships(k, ships):
+                        valid_ship.append(k)
+                    else:
+                        check_collision += 1
+                if check_collision == 0:
+                    valid_ship = {"ship " + str(5 * q + (i + 3)): valid_ship}
+                    ships.update(valid_ship)
+                    collision = False
+    for l in range(4 * double):
+        empty = True
+        while empty:
+            if [-1, -1] in ships["ship " + str(l + 1)]:
+                ships["ship " + str(l + 1)].remove([-1, -1])
+            else:
+                empty = False
     return ships
 
 
@@ -149,8 +201,9 @@ def check_availability(target, grid):  # Checks whether a space has already been
 
 
 def check_hit(target, ships):  # Checks to see if target hits a ship
-    if target in plrs[plr]["ships"]:
-        return True
+    for i in range(5 * double):
+        if target in ships["ship " + str(i + 1)]:
+            return True
     else:
         return False
 
@@ -184,7 +237,7 @@ def print_board(grid):  # Prints the current board including '-'s, 'X's, and '/'
 
 
 def check_vic(tally):  # Checks whether a player has sunk every ship or not
-    if tally >= 14 * double:
+    if tally >= 17 * double:
         print("Player " + str(plr) + " won!")
         print_exit()
         return True
@@ -210,6 +263,7 @@ def print_welcome():  # Asks the user whether they will play
         else:
             print("That isn't a valid number of players! Try again.")
     return players
+
 
 def print_exit():  # Exits the game
     print("\nThanks for playing!")
@@ -305,19 +359,20 @@ while rounds <= 3:
             if game_mode == 1:
                 print("It's Computer's turn!")
                 if grid_size == 8:
-                    chance = 8
+                    chance = 5
                 elif grid_size == 16:
-                    chance = 20
+                    chance = 18
                 else:
-                    chance = 16
+                    chance = 15
                 guess = random.randint(1, chance)
                 if guess == 1:
                     plrs[2]["tally"] += 1
                     print("\nXXXXXXXXXXXXXXX\n    Hit!!!!    \nXXXXXXXXXXXXXXX\n")
                 else:
                     print("\n///////////////\n    Miss :(    \n///////////////\n")
-                if plrs[2]["tally"] >= double * 14:
-                    print("Lmao the computer beat you. Cya nerd.")
+                if plrs[2]["tally"] >= double * 17:
+                    print("\n------------------------------\nLmao the computer beat you. \
+                    Cya nerd.\n------------------------------")
                     exit()
     rounds += 1
 
