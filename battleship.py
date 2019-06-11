@@ -35,6 +35,11 @@ def miss_sound():
     sound.play()
 
 
+def win_sound():
+    sound = pygame.mixer.Sound('Applause-SoundBible.com-151138312.wav')
+    sound.play()
+
+
 # Functions
 
 
@@ -204,8 +209,10 @@ def print_board(grid):  # Prints the current board including '-'s, 'X's, and '/'
 
 def check_vic(tally):  # Checks whether a player has sunk every ship or not
     if tally >= 17 * double:
-        print("Player " + str(plr) + " won!")
+        print("Player " + str(plr) + " won!\n")
+        win_sound()
         print_exit()
+        input("Any last words?\n")
         return True
     else:
         return False
