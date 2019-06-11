@@ -77,17 +77,20 @@ def place_ships():  # Randomly places ships and outputs list of ship coordinates
     for s in range(double * 5):
         ships.update({"ship " + str(s + 1): ["yo"]})
     for q in range(double):
-        for i in range(2):
+        for i in range(5):
             collision = True
             while collision:
                 check_collision = 0
-                length = i + 2
+                if i >= 2:
+                    length = i + 1
+                else:
+                    length = i + 2
                 valid_ship = []
+                third = [-1, -1]
+                fourth = [-1, -1]
+                fifth = [-1, -1]
                 direction = random.randint(1, 2)  # 1 = vertical, 2 = horizontal
                 if direction == 1:
-                    third = [-1, -1]
-                    fourth = [-1, -1]
-                    fifth = [-1, -1]
                     first = [random.randint(1, (grid_size - length + 1)), random.randint(1, grid_size)]
                     second = [first[0] + 1, first[1]]
                     if length >= 3:
@@ -97,9 +100,6 @@ def place_ships():  # Randomly places ships and outputs list of ship coordinates
                             if length >= 5:
                                 fifth = [first[0] + 4, first[1]]
                 else:
-                    third = [-1, -1]
-                    fourth = [-1, -1]
-                    fifth = [-1, -1]
                     first = [random.randint(1, grid_size), random.randint(1, (grid_size - length + 1))]
                     second = [first[0], first[1] + 1]
                     if length >= 3:
@@ -118,48 +118,7 @@ def place_ships():  # Randomly places ships and outputs list of ship coordinates
                     valid_ship = {"ship " + str(5 * q + (i + 1)): valid_ship}
                     ships.update(valid_ship)
                     collision = False
-        for i in range(3):
-            collision = True
-            while collision:
-                check_collision = 0
-                length = i + 3
-                valid_ship = []
-                direction = random.randint(1, 2)  # 1 = vertical, 2 = horizontal
-                if direction == 1:
-                    third = [-1, -1]
-                    fourth = [-1, -1]
-                    fifth = [-1, -1]
-                    first = [random.randint(1, (grid_size - length + 1)), random.randint(1, grid_size)]
-                    second = [first[0] + 1, first[1]]
-                    if length >= 3:
-                        third = [first[0] + 2, first[1]]
-                        if length >= 4:
-                            fourth = [first[0] + 3, first[1]]
-                            if length >= 5:
-                                fifth = [first[0] + 4, first[1]]
-                else:
-                    third = [-1, -1]
-                    fourth = [-1, -1]
-                    fifth = [-1, -1]
-                    first = [random.randint(1, grid_size), random.randint(1, (grid_size - length + 1))]
-                    second = [first[0], first[1] + 1]
-                    if length >= 3:
-                        third = [first[0], first[1] + 2]
-                        if length >= 4:
-                            fourth = [first[0], first[1] + 3]
-                            if length >= 5:
-                                fifth = [first[0], first[1] + 4]
-                new_ship = [first, second, third, fourth, fifth]
-                for k in new_ship:
-                    if check_ships(k, ships):
-                        valid_ship.append(k)
-                    else:
-                        check_collision += 1
-                if check_collision == 0:
-                    valid_ship = {"ship " + str(5 * q + (i + 3)): valid_ship}
-                    ships.update(valid_ship)
-                    collision = False
-    for l in range(4 * double):
+    for l in range(5 * double):
         empty = True
         while empty:
             if [-1, -1] in ships["ship " + str(l + 1)]:
