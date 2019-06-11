@@ -202,7 +202,21 @@ def check_availability(target, grid):  # Checks whether a space has already been
 
 def check_hit(target, ships):  # Checks to see if target hits a ship
     for i in range(5 * double):
-        if target in ships["ship " + str(i + 1)]:
+        i = i + 1
+        if target in ships["ship " + str(i)]:
+            print("\nXXXXXXXXXXXXXXX\n    Hit!!!!    \nXXXXXXXXXXXXXXX\n")
+            ships["ship " + str(i)].remove(target)
+            if ships["ship " + str(i)] == []:
+                if i % 5 == 4:
+                    print("\nOOOOOOOOOOOOOOOOOOOOOOO\nYou sunk the Battleship!!!\nOOOOOOOOOOOOOOOOOOOOOOO\n\n")
+                if i % 5 == 0:
+                    print("\nOOOOOOOOOOOOOOOOOOOO\nYou sunk the Carrier!!!\nOOOOOOOOOOOOOOOOOOOO\n\n")
+                if i % 5 == 1:
+                    print("\nOOOOOOOOOOOOOOOOOOOOOO\nYou sunk the Destroyer!!!\nOOOOOOOOOOOOOOOOOOOOOO\n\n")
+                if i % 5 == 2:
+                    print("\nOOOOOOOOOOOOOOOOOOOOOO\nYou sunk the Submarine!!!\nOOOOOOOOOOOOOOOOOOOOOO\n\n")
+                if i % 5 == 3:
+                    print("\nOOOOOOOOOOOOOOOOOOOO\nYou sunk the Cruiser!!!\nOOOOOOOOOOOOOOOOOOOO\n\n")
             return True
     else:
         return False
@@ -337,7 +351,6 @@ while rounds <= 3:
                 plrs[plr]["grid"][target[0] - 1][target[1] - 1] = "X"
                 plrs[plr]["tally"] += 1
                 print_board(plrs[plr]["grid"])
-                print("\nXXXXXXXXXXXXXXX\n    Hit!!!!    \nXXXXXXXXXXXXXXX\n")
                 plrs[plr]["last"] = "hit"
 
             elif result is "miss":
