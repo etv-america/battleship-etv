@@ -349,6 +349,6 @@ while rounds <= 3:
                     print("\n------------------------------\nLmao the computer beat you. \
                     Cya nerd.\n------------------------------")
                     exit()
-    rounds += 1
+    rounds += 1  # increment rounds
 
 print_exit()
